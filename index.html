@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Surprise | نونو</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+      function checkPassword() {
+        var p = prompt("أدخل تاريخ ميلادك السري (يوم/شهر/سنة):", "");
+        if (p !== "20/4/2000") {
+          if (p !== null) alert("خطأ! فكر يا نونو..");
+          checkPassword();
+        }
+      }
+      checkPassword();
+    </script>
+    <style>
+        body { margin: 0; font-family: 'Cairo', sans-serif; background: #fdfdfe; display: flex; flex-direction: column; align-items: center; text-align: center; color: #2d3436; }
+        .container { background: white; padding: 30px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); width: 85%; max-width: 400px; margin-top: 40px; border: 1px solid #eee; }
+        h1 { color: #ff758c; font-size: 1.6em; }
+        .timer { background: #ff758c; color: white; padding: 10px 20px; border-radius: 50px; font-weight: bold; margin: 15px 0; display: inline-block; }
+        .slider-frame { width: 100%; height: 350px; border-radius: 20px; overflow: hidden; position: relative; margin: 20px 0; background: #fafafa; }
+        .slider-frame img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 1s; }
+        .slider-frame img.active { opacity: 1; }
+        audio { width: 100%; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>كل سنة وأنت طيب يا نونو ✨</h1>
+        <div class="timer" id="countdown">باقي أيام قليلة...</div>
+        <div class="slider-frame" id="slider">
+            <img src="1.jpg" class="active">
+            <img src="2.jpg">
+            <img src="3.jpg">
+        </div>
+        <div class="message"><p>أتمنى لك سنة سعيدة زيك! ❤️</p></div>
+        <audio controls loop><source src="music.mp3" type="audio/mpeg"></audio>
+    </div>
+    <script>
+        // العداد
+        const target = new Date("April 20, 2026 00:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const d = Math.floor((target - now) / (1000 * 60 * 60 * 24));
+            const h = Math.floor(((target - now) % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("countdown").innerHTML = `باقي ${d} يوم و ${h} ساعة على يوم ميلادك`;
+        }, 1000);
+        // تبديل الصور
+        let current = 0; const slides = document.querySelectorAll('#slider img');
+        setInterval(() => {
+            slides[current].classList.remove('active');
+            current = (current + 1) % slides.length;
+            slides[current].classList.add('active');
+        }, 4000);
+    </script>
+</body>
+</html>
