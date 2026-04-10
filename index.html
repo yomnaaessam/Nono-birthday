@@ -12,21 +12,13 @@
           if (p !== null) alert("خطأ! ركز يا نونو..");
           checkPassword();
         } else {
-          // لما الباسورد يصح، نظهر طبقة "الدخول"
           document.getElementById("overlay").style.display = "flex";
         }
       }
       
       function startEverything() {
         var audio = document.getElementById("myAudio");
-        // أمر تشغيل الموسيقى
-        audio.play().then(() => {
-            console.log("الموسيقى بدأت بنجاح");
-        }).catch(e => {
-            console.log("المتصفح يحتاج لمسة لتشغيل الصوت");
-        });
-        
-        // إخفاء طبقة الدخول وإظهار المحتوى
+        audio.play().catch(e => console.log("الصوت يحتاج لمسة"));
         document.getElementById("overlay").style.display = "none";
         document.getElementById("mainContent").style.opacity = "1";
       }
@@ -36,17 +28,12 @@
     <style>
         :root { --primary: #ff758c; --dark: #2d3436; }
         body { margin: 0; padding: 0; font-family: 'Cairo', sans-serif; background: #fdfdfe; min-height: 100vh; overflow-x: hidden; }
-        
-        /* طبقة الدخول - ضرورية لتفعيل الصوت */
         #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 1000; display: none; flex-direction: column; align-items: center; justify-content: center; }
         .enter-btn { background: var(--primary); color: white; border: none; padding: 15px 40px; border-radius: 50px; font-size: 1.3em; cursor: pointer; box-shadow: 0 10px 20px rgba(255, 117, 140, 0.3); animation: pulse 2s infinite; font-family: 'Cairo', sans-serif; }
-        
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-
         #mainContent { opacity: 0; transition: opacity 1s ease-in; display: flex; flex-direction: column; align-items: center; text-align: center; }
         .hearts { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
         .container { background: white; padding: 35px 25px; border-radius: 35px; box-shadow: 0 20px 50px rgba(0,0,0,0.06); width: 85%; max-width: 420px; margin: 40px 20px; border: 1px solid #fceef0; }
-        h1 { color: var(--primary); font-size: 1.7em; margin-bottom: 5px; }
+        h1 { color: var(--primary); font-size: 1.7em; }
         .timer { background: var(--primary); color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.9em; margin: 15px 0; font-weight: bold; }
-        
-        .slider-frame { position: relative; width: 100%; height: 380px; border-radius: 25px; overflow: hidden; margin: 25px 0; background: #f8f9
+        .
