@@ -36,4 +36,72 @@
         .container { background: white; padding: 35px 25px; border-radius: 35px; box-shadow: 0 20px 50px rgba(0,0,0,0.06); width: 85%; max-width: 420px; margin: 40px 20px; border: 1px solid #fceef0; }
         h1 { color: var(--primary); font-size: 1.7em; }
         .timer { background: var(--primary); color: white; padding: 8px 20px; border-radius: 50px; font-size: 0.9em; margin: 15px 0; font-weight: bold; }
-        .
+        .slider-frame { position: relative; width: 100%; height: 380px; border-radius: 25px; overflow: hidden; margin: 25px 0; background: #f8f9fa; border: 4px solid #fff; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .slider-frame img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 1.5s ease-in-out; }
+        .slider-frame img.active { opacity: 1; }
+        .message { line-height: 1.8; color: #555; font-size: 1.05em; margin-top: 10px; }
+        #myAudio { display: none; }
+    </style>
+</head>
+<body>
+
+    <div id="overlay">
+        <h2 style="color: #ff758c; margin-bottom: 20px;">جاهز للمفاجأة؟ ✨</h2>
+        <button class="enter-btn" onclick="startEverything()">افتح الهدية 🎁</button>
+    </div>
+
+    <div id="mainContent">
+        <div class="hearts" id="hearts-container"></div>
+        <div class="container">
+            <h1>كل سنة وأنت طيب يا نونو ✨</h1>
+            <div class="timer" id="countdown">باقي القليل...</div>
+            
+            <div class="slider-frame" id="slider">
+                <img src="1.jpg" class="active">
+                <img src="2.jpg">
+                <img src="3.jpg">
+            </div>
+
+            <div class="message">
+                <h2 style="color: #ff758c; font-size: 1.3em; margin-bottom: 15px;">رسالة خاصة ليك.. ✨</h2>
+                <p>كل سنة وأنت طيب يا أحلى نونو في الدنيا! ❤️</p>
+                <p>حبيت أعملك حاجة مميزة تفرحك، موقع خاص بيك لوحدك يجمع ذكرياتنا البسيطة.</p>
+                <p>أتمنى السنة دي تكون بداية لكل حاجة حلوة بتتمناها، وتفضل دايماً الضحكة مش مفارقة وشك.</p>
+            </div>
+
+            <audio id="myAudio" loop>
+                <source src="music.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+    </div>
+
+    <script>
+        const target = new Date("April 20, 2026 00:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = target - now;
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("countdown").innerHTML = `باقي ${d} يوم و ${h} ساعة على يوم ميلادك`;
+        }, 1000);
+
+        const slides = document.querySelectorAll('#slider img');
+        let current = 0;
+        setInterval(() => {
+            slides[current].classList.remove('active');
+            current = (current + 1) % slides.length;
+            slides[current].classList.add('active');
+        }, 4000);
+
+        function addHeart() {
+            const h = document.createElement("div");
+            h.innerHTML = "❤️";
+            h.style.cssText = `position:fixed; left:${Math.random()*100}vw; top:-20px; font-size:${Math.random()*15+10}px; opacity:${Math.random()}; pointer-events:none; transition: top 6s linear, opacity 6s;`;
+            document.getElementById("hearts-container").appendChild(h);
+            setTimeout(() => { h.style.top = "110vh"; h.style.opacity = "0"; }, 100);
+            setTimeout(() => h.remove(), 7000);
+        }
+        setInterval(addHeart, 500);
+    </script>
+</body>
+</html>
